@@ -1,17 +1,27 @@
-import React, { useState } from "react";
-import ThemeContext from "./Context/ThemeContext";
-import Header from "./Components/Header";
-import HeroSection from "./Components/HeroSection";
+import React, { useReducer } from "react";
+import {TodoContext} from "./Context/TodoContext";
+import todoReducer from "./Context/reducer";
+import AddTodo from "./Components/AddTodo";
+import TodoList from "./Components/TodoList";
+import TodoForm from "./Components/TodoForm";
 
 const App = () => {
-  const themeHook = useState("light");
+  const [todos, dispatch] = useReducer(todoReducer, []);
+  console.log(todos);
+  console.log(dispatch);
+
   return (
-    <ThemeContext.Provider value={themeHook}>
-      <div>
-        <Header />
-        <HeroSection />
+    <TodoContext.Provider value={{ todos, dispatch }}>
+      <div className="App">
+        <h1>Todo App with Reducers</h1>
+        {/* <AddTodo /> */}
+ 
+        <TodoForm/>
+        <TodoList />
       </div>
-    </ThemeContext.Provider>
+    </TodoContext.Provider>
+
+
   );
 };
 
