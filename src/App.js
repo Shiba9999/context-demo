@@ -1,43 +1,18 @@
-import React, { Fragment } from "react";
-import "./App.css";
-import { MyContext } from "./context";
-import Provider from "./Provider";
+import React, { useState } from "react";
+import ThemeContext from "./Context/ThemeContext";
+import Header from "./Components/Header";
+import HeroSection from "./Components/HeroSection";
 
-const Agent = () => {
-  return <AgentTwo />;
-};
-const AgentTwo = () => {
-  return <AgentThree />;
-};
-
-
-const AgentThree = () => {
-  return <AgentFour />;
-};
-const AgentFour = () => {
+const App = () => {
+  const themeHook = useState("light");
   return (
- <MyContext.Consumer  >
-      {(context) => (
-        <Fragment>
-          <h1>{context.value.mname}</h1>
-          <h2>{context.value.agent}</h2>
-          <h3>{context.value.accept}</h3>
-          <button onClick={context.isMissionAccepted}>Click Me</button>
-        </Fragment>
-      )}
-    </MyContext.Consumer>
+    <ThemeContext.Provider value={themeHook}>
+      <div>
+        <Header />
+        <HeroSection />
+      </div>
+    </ThemeContext.Provider>
   );
-}
-
-
-function App() {
-  return (
-    <div className="App">
-      <Provider>
-        <Agent />
-      </Provider>
-    </div>
-  );
-}
+};
 
 export default App;
